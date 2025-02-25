@@ -2,6 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../lib/supabase";
 import { Link } from "react-router-dom";
+import { getScoreColour } from "../utils/ColourHelpers.ts";
 
 type Game = {
   id: string;
@@ -15,12 +16,6 @@ type Point = {
   game_id: string;
   won_point: boolean;
 };
-
-function getScoreColour(teamScore: number, oppScore: number) {
-  if (teamScore < oppScore) return "#e72727"; // red
-  if (teamScore === oppScore) return "#dc9934"; // Amber
-  return "#28c61d"; // Green
-}
 
 export default function GamesList() {
   const { data: games, isLoading: gamesLoading } = useQuery({
@@ -63,6 +58,14 @@ export default function GamesList() {
 
   return (
     <div className="wrapper">
+      <div>
+        <Link
+          to="/"
+          className="px-4 py-2 hover:bg-[#303030] text-white transition rounded-md"
+        >
+          &larr; Back to Homepage
+        </Link>
+      </div>
       <header>
         <h1>Games List</h1>
       </header>

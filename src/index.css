@@ -92,6 +92,58 @@ h1 {
   color: var(--grey-text);
 }
 
+.return_button {
+  color: var(--grey-text);
+  border-radius: 10%;
+  background-color: var(--highlight-colour);
+}
+
+.row_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  vertical-align: center;
+  gap: 0px;
+  margin-top: 40px;
+}
+
+.row_item {
+  background-color: none;
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  flex-direction: row;
+  vertical-align: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.row_item:hover {
+  background-color: var(--highlight-colour);
+}
+
+.point_item {
+  width: 20%;
+}
+
+.watch_button {
+  border-radius: 8px;
+  color: white;
+  background-color: #168a2a;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.watch_button:hover {
+  background-color: #137423;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -104,7 +156,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: var(--highlight-colour);
 }
 button:focus,
 button:focus-visible {

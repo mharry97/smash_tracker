@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../lib/supabase";
 import { buildClipUrl } from "../utils/VideoHelpers.ts";
+import { getScoreColour } from "../utils/ColourHelpers.ts";
 
 type Game = {
   id: string;
@@ -26,16 +27,9 @@ type Point = {
   partialOppScore?: number;
 };
 
-// Score color logic
-function getScoreColor(teamScore: number, oppScore: number) {
-  if (teamScore < oppScore) return "text-red-500";
-  if (teamScore === oppScore) return "text-yellow-500";
-  return "text-green-500";
-}
-
 // Win/Loss color logic
-function getResultColor(won: boolean) {
-  return won ? "text-green-500" : "text-red-500";
+function getResultColour(won: boolean) {
+  return won ? "#28c61d" : "#e72727";
 }
 
 export default function GamePage() {
@@ -102,12 +96,12 @@ export default function GamePage() {
   }
 
   return (
-    <div className="p-4 bg-[#1F1F1F] min-h-screen text-white w-full">
+    <div className="wrapper">
       {/* Back to Games (Gray Button with White Text) */}
-      <div className="mb-4">
+      <div>
         <Link
-          to="/"
-          className="px-4 py-2 hover:bg-gray-700 text-white transition rounded-md"
+          to="/game"
+          className="px-4 py-2 hover:bg-[#303030] text-white transition rounded-md"
         >
           &larr; Back to Games
         </Link>
@@ -115,10 +109,10 @@ export default function GamePage() {
 
       <h1 className="text-3xl font-bold mb-6">Points</h1>
 
-      <div className="flex flex-col gap-2 w-full">
+      <div className="row_container">
         {pointsWithScore.map((p) => {
-          const scoreColor = getScoreColor(p.partialTeamScore || 0, p.partialOppScore || 0);
-          const resultColor = getResultColor(p.won_point);
+          const scoreColour = getScoreColour(p.partialTeamScore || 0, p.partialOppScore || 0);
+          const resultColour = getResultColour(p.won_point);
 
           // Decide which initiation & main play to display
           const initiationPlay =
@@ -127,6 +121,11 @@ export default function GamePage() {
             p.offense_or_defense === "Offense"
               ? p.offense_main_strategy
               : p.defense_main_strategy;
+
+          // Convert offense/defense to single word
+
+          const typeShort =
+          p.offense_or_defense === "Offense" ? "O" : "D"
 
           // Build watch link
           let finalClipUrl = "";
@@ -142,27 +141,21 @@ export default function GamePage() {
             <Link
               key={p.id}
               to={`/point/${p.id}`}
-              className="grid grid-cols-6 items-center bg-[#2B2B2B] border border-gray-700 
-                         rounded-md p-2 hover:bg-[#3B3B3B] transition relative"
+              className="row_item"
             >
               {/* SCORE (red/yellow/green) */}
-              <div className={`${scoreColor} font-bold`}>
+              <div className="point_item" style={{ color: scoreColour }}>
                 {p.partialTeamScore} - {p.partialOppScore}
               </div>
 
-              {/* Offense/Defense → white */}
-              <div className="text-white">{p.offense_or_defense}</div>
+              {/* Offense/Defense → (green/red) */}
+              <div className="point_item" style={{ color: resultColour }}>{typeShort}</div>
 
               {/* Initiation Play → white */}
-              <div className="text-white">{initiationPlay || "N/A"}</div>
+              <div className="point_item">{initiationPlay || ""}</div>
 
               {/* Main Play → white */}
-              <div className="text-white">{mainPlay || "N/A"}</div>
-
-              {/* Win/Loss (red/green) */}
-              <div className={`${resultColor} font-bold`}>
-                {p.won_point ? "W" : "L"}
-              </div>
+              <div className="point_item">{mainPlay || ""}</div>
 
               {/* Watch Clip → green button with white text */}
               <div>
@@ -174,7 +167,7 @@ export default function GamePage() {
                       e.stopPropagation();
                       window.open(finalClipUrl, "_blank");
                     }}
-                    className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded-md transition"
+                    className="watch_button"
                   >
                     Watch Clip
                   </button>
