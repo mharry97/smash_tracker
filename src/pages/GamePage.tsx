@@ -170,6 +170,7 @@ export default function GamePage() {
                   <button
                     type="button"
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
                       window.open(finalClipUrl, "_blank");
                     }}
