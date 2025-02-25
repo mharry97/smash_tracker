@@ -89,14 +89,14 @@ export default function GamePage() {
   if (gameLoading || pointsLoading) {
     return (
       <div className="p-4 bg-[#1F1F1F] min-h-screen text-white w-full">
-        <h1 className="text-3xl font-bold mb-4">Points</h1>
+        <h1>Points</h1>
         <p>Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="wrapper">
+    <div className="p-6">
       {/* Back to Games (Gray Button with White Text) */}
       <div>
         <Link
@@ -107,7 +107,7 @@ export default function GamePage() {
         </Link>
       </div>
 
-      <h1 className="text-3xl font-bold mb-6">Points</h1>
+      <h1>Points</h1>
 
       <div className="row_container">
         {pointsWithScore.map((p) => {
@@ -179,7 +179,7 @@ export default function GamePage() {
           );
         })}
 
-        {/* Add Point (Gray Button with White Text) */}
+        {/* Add Point (Green Button with White Text) */}
         <div className="border border-gray-700 rounded-md p-2 text-center hover:bg-[#3B3B3B] cursor-pointer">
           <Link
             to={`/game/${gameId}/add-point`}

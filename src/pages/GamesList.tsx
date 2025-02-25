@@ -57,7 +57,7 @@ export default function GamesList() {
   }
 
   return (
-    <div className="wrapper">
+    <div className="p-6">
       <div>
         <Link
           to="/"

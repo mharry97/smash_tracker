@@ -1,7 +1,7 @@
 // src/pages/AddGamePage.tsx
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 
 export default function AddGamePage() {
@@ -35,7 +35,7 @@ export default function AddGamePage() {
   };
 
   return (
-    <div className="bg-[#1F1F1F] min-h-screen text-white p-6 w-full">
+    <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">Add New Game</h1>
 
       {error && (

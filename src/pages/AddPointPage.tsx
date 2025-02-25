@@ -1,7 +1,7 @@
 // src/pages/AddPointPage.tsx
 
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 
 type SquadPlayer = {
@@ -190,7 +190,7 @@ export default function AddPointPage() {
   };
 
   return (
-    <div className="bg-[#1F1F1F] min-h-screen text-white p-6 w-full">
+    <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">Add New Point</h1>
 
       {error && (
